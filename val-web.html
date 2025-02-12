@@ -13,12 +13,11 @@
             height: 100vh;
             background: url('https://t4.ftcdn.net/jpg/02/48/06/51/360_F_248065175_UKqGpkZFZG3mPBKKKpxseqS6VlIlmzq7.jpg') no-repeat center center fixed;
             background-size: cover;
-
             font-family: Arial, sans-serif;
             text-align: center;
         }
         h1 {
-            color: #e60073;
+            color: #ffffff;
             font-size: 3rem;
         }
         .buttons {
@@ -54,35 +53,39 @@
 <body>
     <h1>Wanna be my valentine? ❤️</h1>
     <div class="buttons">
-        <button class="yes" onclick="showPopup()">Yes</button>
+        <button class="yes" onclick="showPopup('Yayyy besser für deine Gesundheit! ❤️🥰', 'https://i.pinimg.com/736x/cf/18/e9/cf18e90b2c4de55ec275de777632114a.jpg')">Yes</button>
         <button class="no" onmouseover="moveNo(event)">No</button>
     </div>
-    
+
     <script>
         let firstAttempt = true;
+
         function moveNo(event) {
-            if (firstAttempt) {
-                showWarningPopup();
-                firstAttempt = false;
-            }
-            
             let noButton = document.querySelector('.no');
+
+            if (firstAttempt) {
+                showPopup('Leck Eier, denk nicht mal daran');
+                firstAttempt = false;
+            } else {
+                showPopup('Eyyyy! Idiot');
+            }
+
             let rect = noButton.getBoundingClientRect();
-            let offsetX = (Math.random() - 1) * 15; // Smaller movement
-            let offsetY = (Math.random() - 1) * 15; // Smaller movement
-            
+            let offsetX = (Math.random() - 200) * 1.5; // Zufällige Bewegung
+            let offsetY = (Math.random() - 200) * 1.5;
+
             let newX = rect.left + offsetX;
             let newY = rect.top + offsetY;
-            
+
             newX = Math.max(10, Math.min(window.innerWidth - rect.width - 10, newX));
             newY = Math.max(10, Math.min(window.innerHeight - rect.height - 10, newY));
-            
+
             noButton.style.position = "absolute";
             noButton.style.left = `${newX}px`;
             noButton.style.top = `${newY}px`;
         }
 
-        function showPopup() {
+        function showPopup(message, imageUrl = null) {
             let popup = document.createElement("div");
             popup.style.position = "fixed";
             popup.style.top = "50%";
@@ -95,16 +98,21 @@
             popup.style.textAlign = "center";
 
             let text = document.createElement("p");
-            text.innerText = "Yayyy besser für deine Gesundheit! ❤️🥰";
+            text.innerText = message;
             text.style.fontSize = "1.5rem";
 
-            let image = document.createElement("img");
-            image.src = "https://i.pinimg.com/736x/cf/18/e9/cf18e90b2c4de55ec275de777632114a.jpg"; // Example heart image
-            image.style.width = "200px";
-            image.style.marginTop = "20px";
+            popup.appendChild(text);
+
+            if (imageUrl) {
+                let image = document.createElement("img");
+                image.src = imageUrl;
+                image.style.width = "200px";
+                image.style.marginTop = "20px";
+                popup.appendChild(image);
+            }
 
             let closeButton = document.createElement("button");
-            closeButton.innerText = "yayyyy";
+            closeButton.innerText = "Yes daddy!";
             closeButton.style.marginTop = "10px";
             closeButton.style.padding = "10px";
             closeButton.style.border = "none";
@@ -116,42 +124,6 @@
                 document.body.removeChild(popup);
             };
 
-            popup.appendChild(text);
-            popup.appendChild(image);
-            popup.appendChild(closeButton);
-            document.body.appendChild(popup);
-        }
-
-        function showWarningPopup() {
-            let popup = document.createElement("div");
-            popup.style.position = "fixed";
-            popup.style.top = "50%";
-            popup.style.left = "50%";
-            popup.style.transform = "translate(-50%, -50%)";
-            popup.style.background = "white";
-            popup.style.padding = "20px";
-            popup.style.borderRadius = "10px";
-            popup.style.boxShadow = "0px 0px 10px rgba(0,0,0,0.3)";
-            popup.style.textAlign = "center";
-
-            let text = document.createElement("p");
-            text.innerText = "Leck Eier, denk nicht mal daran";
-            text.style.fontSize = "1.5rem";
-
-            let closeButton = document.createElement("button");
-            closeButton.innerText = "Okay daddy!";
-            closeButton.style.marginTop = "10px";
-            closeButton.style.padding = "10px";
-            closeButton.style.border = "none";
-            closeButton.style.background = "#ff4081";
-            closeButton.style.color = "white";
-            closeButton.style.borderRadius = "5px";
-            closeButton.style.cursor = "pointer";
-            closeButton.onclick = function() {
-                document.body.removeChild(popup);
-            };
-
-            popup.appendChild(text);
             popup.appendChild(closeButton);
             document.body.appendChild(popup);
         }
