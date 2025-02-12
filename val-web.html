@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Love Me?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffccdc;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            color: #e60073;
+            font-size: 3rem;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            width: 100%;
+            position: relative;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+            position: relative;
+        }
+        .yes {
+            background-color: #ff4081;
+            color: white;
+        }
+        .no {
+            background-color: #ff1744;
+            color: white;
+        }
+        .yes:hover {
+            background-color: #e60073;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wanna be my valentine? ❤️</h1>
+    <div class="buttons">
+        <button class="yes" onclick="showPopup()">Yes</button>
+        <button class="no" onmouseover="moveNo(event)">No</button>
+    </div>
+    
+    <script>
+        let firstAttempt = true;
+        function moveNo(event) {
+            if (firstAttempt) {
+                showWarningPopup();
+                firstAttempt = false;
+            }
+            
+            let noButton = document.querySelector('.no');
+            let rect = noButton.getBoundingClientRect();
+            let offsetX = (Math.random() - 0.5) * 15; // Smaller movement
+            let offsetY = (Math.random() - 0.5) * 15; // Smaller movement
+            
+            let newX = rect.left + offsetX;
+            let newY = rect.top + offsetY;
+            
+            newX = Math.max(10, Math.min(window.innerWidth - rect.width - 10, newX));
+            newY = Math.max(10, Math.min(window.innerHeight - rect.height - 10, newY));
+            
+            noButton.style.position = "absolute";
+            noButton.style.left = `${newX}px`;
+            noButton.style.top = `${newY}px`;
+        }
+
+        function showPopup() {
+            let popup = document.createElement("div");
+            popup.style.position = "fixed";
+            popup.style.top = "50%";
+            popup.style.left = "50%";
+            popup.style.transform = "translate(-50%, -50%)";
+            popup.style.background = "white";
+            popup.style.padding = "20px";
+            popup.style.borderRadius = "10px";
+            popup.style.boxShadow = "0px 0px 10px rgba(0,0,0,0.3)";
+            popup.style.textAlign = "center";
+
+            let text = document.createElement("p");
+            text.innerText = "Yayyy besser für deine Gesundheit! ❤️🥰";
+            text.style.fontSize = "1.5rem";
+
+            let image = document.createElement("img");
+            image.src = "https://i.pinimg.com/736x/cf/18/e9/cf18e90b2c4de55ec275de777632114a.jpg"; // Example heart image
+            image.style.width = "200px";
+            image.style.marginTop = "20px";
+
+            let closeButton = document.createElement("button");
+            closeButton.innerText = "yayyyy";
+            closeButton.style.marginTop = "10px";
+            closeButton.style.padding = "10px";
+            closeButton.style.border = "none";
+            closeButton.style.background = "#ff4081";
+            closeButton.style.color = "white";
+            closeButton.style.borderRadius = "5px";
+            closeButton.style.cursor = "pointer";
+            closeButton.onclick = function() {
+                document.body.removeChild(popup);
+            };
+
+            popup.appendChild(text);
+            popup.appendChild(image);
+            popup.appendChild(closeButton);
+            document.body.appendChild(popup);
+        }
+
+        function showWarningPopup() {
+            let popup = document.createElement("div");
+            popup.style.position = "fixed";
+            popup.style.top = "50%";
+            popup.style.left = "50%";
+            popup.style.transform = "translate(-50%, -50%)";
+            popup.style.background = "white";
+            popup.style.padding = "20px";
+            popup.style.borderRadius = "10px";
+            popup.style.boxShadow = "0px 0px 10px rgba(0,0,0,0.3)";
+            popup.style.textAlign = "center";
+
+            let text = document.createElement("p");
+            text.innerText = "Leck Eier, denk nicht mal daran";
+            text.style.fontSize = "1.5rem";
+
+            let closeButton = document.createElement("button");
+            closeButton.innerText = "Okay daddy!";
+            closeButton.style.marginTop = "10px";
+            closeButton.style.padding = "10px";
+            closeButton.style.border = "none";
+            closeButton.style.background = "#ff4081";
+            closeButton.style.color = "white";
+            closeButton.style.borderRadius = "5px";
+            closeButton.style.cursor = "pointer";
+            closeButton.onclick = function() {
+                document.body.removeChild(popup);
+            };
+
+            popup.appendChild(text);
+            popup.appendChild(closeButton);
+            document.body.appendChild(popup);
+        }
+    </script>
+</body>
+</html>
